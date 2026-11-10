@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -30,16 +31,16 @@ public class FirstFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.buttonFirst.setOnClickListener(v -> {
-            // 1. Prepara el mensaje que quieres enviar
-            String textoAEnviar = binding.etMensaje.getText().toString();
+            String textoAEnviar = binding.etMensaje.getText().toString().trim();
 
-            // 2. Utiliza la clase automática de Safe Args para empaquetar ese mensaje
-            // (Esta clase la crea Android sola basándose en el nav_graph.xml)
-            FirstFragmentDirections.ActionFirstFragmentToSecondFragment action =
-                    FirstFragmentDirections.actionFirstFragmentToSecondFragment(textoAEnviar);
+            if (textoAEnviar.isEmpty()) {
+                Toast.makeText(getContext(), "Ingresa un texto primero", Toast.LENGTH_SHORT).show();
+            } else {
+                FirstFragmentDirections.ActionFirstFragmentToSecondFragment action =
+                        FirstFragmentDirections.actionFirstFragmentToSecondFragment(textoAEnviar);
 
-            // 3. Ordena al Navegador (NavController) que ejecute el viaje usando esa ruta
-            NavHostFragment.findNavController(FirstFragment.this).navigate(action);
+                NavHostFragment.findNavController(FirstFragment.this).navigate(action);
+            }
         });
     }
 
