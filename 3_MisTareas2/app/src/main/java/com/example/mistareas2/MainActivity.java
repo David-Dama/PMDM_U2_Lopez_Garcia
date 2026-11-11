@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import com.google.android.material.snackbar.Snackbar;
 
+// Practica 3: Mis tareas 2 - Completada
 public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTareaListener {
 
     private ActivityMainBinding binding;
