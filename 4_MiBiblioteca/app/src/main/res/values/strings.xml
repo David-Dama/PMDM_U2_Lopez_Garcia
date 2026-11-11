@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">MiBiblioteca</string>
+    <string name="app_name">Mi Biblioteca</string>
+    <string name="hint_titulo">Titulo</string>
+    <string name="hint_autor">Autor</string>
+    <string name="hint_paginas">Paginas</string>
+    <string name="anadir">Añadir</string>
+    <string name="leido">Leido</string>
+    <string name="eliminar_libro">Eliminar libro</string>
+    <string name="sin_libros">Aún no hay libros.\nAñade el primero con el formulario de arriba.</string>
+    <string name="error_obligatorio">Obligatorio</string>
+    <string name="error_paginas">Numero no valido</string>
+    <string name="libro_guardado">Libro guardado en la base de datos</string>
+    <string name="libro_eliminado">Libro eliminado</string>
+    <string name="deshacer">Deshacer</string>
+    <string name="paginas_formato">%1$d páginas</string>
+    <string name="resumen_libros">%1$d libros %2$d leidos</string>
 </resources>
