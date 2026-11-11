@@ -8,6 +8,7 @@ public class Noticia {
     private String categoria;
     private String fecha;
     private int imagen;
+    private boolean favorita;
 
     public Noticia(String titulo, String descripcion,
                    String categoria, String fecha, int imagen) {
@@ -37,5 +38,13 @@ public class Noticia {
 
     public int getImagen() {
         return imagen;
+    }
+
+    public boolean isFavorita() {
+        return favorita;
+    }
+
+    public void setFavorita(boolean favorita) {
+        this.favorita = favorita;
     }
 }

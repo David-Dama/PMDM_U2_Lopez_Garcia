@@ -1,9 +1,24 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
     <style name="Base.Theme.NoticiasFP" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <item name="colorPrimary">#315B96</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <item name="colorSecondary">#526477</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="colorOnSurface">#191C20</item>
+
+        <item name="colorSurfaceVariant">#E1E5EC</item>
+        <item name="colorOnSurfaceVariant">#44474F</item>
+
+        <item name="colorOutline">#747780</item>
+
     </style>
 
     <style name="Theme.NoticiasFP" parent="Base.Theme.NoticiasFP" />
+
 </resources>

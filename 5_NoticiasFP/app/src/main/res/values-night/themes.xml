@@ -1,7 +1,24 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.NoticiasFP" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.NoticiasFP" parent="Theme.Material3.Dark.NoActionBar">
+
+        <item name="colorPrimary">#A9C7FF</item>
+        <item name="colorOnPrimary">#17345C</item>
+
+        <item name="colorSecondary">#B8C8DF</item>
+        <item name="colorOnSecondary">#26374D</item>
+
+        <item name="colorSurface">#191C20</item>
+        <item name="colorOnSurface">#E2E2E9</item>
+
+        <item name="colorSurfaceVariant">#44474F</item>
+        <item name="colorOnSurfaceVariant">#C4C6D0</item>
+
+        <item name="colorOutline">#8E9099</item>
+
     </style>
+
+    <style name="Theme.NoticiasFP" parent="Base.Theme.NoticiasFP" />
+
 </resources>
