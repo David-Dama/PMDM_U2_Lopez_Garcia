@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Mis Tareas</string>
+
+    <!-- Menú de la barra superior (Options menu) -->
+    <string name="ver_cuadricula">Ver en cuadrícula</string>
+    <string name="ver_lista">Ver en lista</string>
+    <string name="borrar_completadas">Borrar completadas</string>
+
+    <!-- Menú popup de cada tarea -->
+    <string name="opciones_tarea">Opciones de la tarea</string>
+    <string name="prioridad_alta">Prioridad alta</string>
+    <string name="prioridad_media">Prioridad media</string>
+    <string name="prioridad_baja">Prioridad baja</string>
+
+    <!-- Menú contextual (pulsación larga) -->
+    <string name="duplicar">Duplicar</string>
+    <string name="eliminar">Eliminar</string>
+
+    <!-- Otros textos dinámicos -->
+    <string name="anadir_tarea">Añadir tarea</string>
+    <string name="nueva_tarea">Nueva tarea %1$d</string>
+    <string name="nueva_tarea_descripcion">Añadida con el botón +</string>
+    <string name="tareas_borradas">Tareas borradas: %1$d</string>
+    <string name="copia_de">%1$s (copia)</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_cambiar_vista"
+        android:icon="@drawable/ic_grid_view"
+        android:title="@string/ver_cuadricula"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_borrar_completadas"
+        android:title="@string/borrar_completadas"
+        app:showAsAction="never" />
+
+</menu>
