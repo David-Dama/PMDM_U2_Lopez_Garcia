@@ -132,13 +132,32 @@ public class MainActivity extends AppCompatActivity {
         adapter = new NoticiaAdapter(new ArrayList<>(noticias));
         binding.recyclerNoticias.setAdapter(adapter);
 
-        binding.fab.setOnClickListener(view ->
-                Snackbar.make(
-                        binding.main,
-                        "Función de añadir noticia pendiente",
-                        Snackbar.LENGTH_SHORT
-                ).show()
+        binding.scrollNoticias.setOnScrollChangeListener(
+                (androidx.core.widget.NestedScrollView.OnScrollChangeListener)
+                        (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+
+                            if (scrollY > oldScrollY) {
+                                // Desplazamiento hacia abajo: encoger.
+                                binding.fab.shrink();
+
+                            } else if (scrollY < oldScrollY) {
+                                // Desplazamiento hacia arriba: ampliar.
+                                binding.fab.extend();
+                            }
+                        }
         );
+
+        binding.fab.setOnClickListener(view -> {
+
+            Snackbar.make(
+                    binding.main,
+                    "Nueva",
+                    Snackbar.LENGTH_LONG
+            ).setAction("Deshacer", v -> {
+                // Acción de deshacer pendiente de implementar.
+            }).show();
+
+        });
     }
     private void filtrarNoticias(String categoria) {
 
