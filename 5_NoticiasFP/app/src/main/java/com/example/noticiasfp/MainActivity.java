@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private List<Noticia> noticias;
     private ActionBarDrawerToggle drawerToggle;
+    private NoticiaAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +61,29 @@ public class MainActivity extends AppCompatActivity {
             int id = item.getItemId();
 
             if (id == R.id.nav_portada) {
+
                 binding.toolbar.setTitle("Portada");
+                adapter.actualizarNoticias(noticias);
 
             } else if (id == R.id.nav_tecnologia) {
+
                 binding.toolbar.setTitle("Tecnología");
+                filtrarNoticias("Tecnología");
 
             } else if (id == R.id.nav_economia) {
+
                 binding.toolbar.setTitle("Economía");
+                filtrarNoticias("Economía");
 
             } else if (id == R.id.nav_educacion) {
+
                 binding.toolbar.setTitle("Educación");
+                filtrarNoticias("Educación");
 
             } else if (id == R.id.nav_favoritas) {
+
                 binding.toolbar.setTitle("Mis favoritas");
+
             }
 
             binding.drawerLayout.closeDrawers();
@@ -118,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 new LinearLayoutManager(this)
         );
 
-        NoticiaAdapter adapter = new NoticiaAdapter(noticias);
+        adapter = new NoticiaAdapter(new ArrayList<>(noticias));
         binding.recyclerNoticias.setAdapter(adapter);
 
         binding.fab.setOnClickListener(view ->
@@ -128,6 +139,19 @@ public class MainActivity extends AppCompatActivity {
                         Snackbar.LENGTH_SHORT
                 ).show()
         );
+    }
+    private void filtrarNoticias(String categoria) {
+
+        List<Noticia> noticiasFiltradas = new ArrayList<>();
+
+        for (Noticia noticia : noticias) {
+
+            if (noticia.getCategoria().equals(categoria)) {
+                noticiasFiltradas.add(noticia);
+            }
+        }
+
+        adapter.actualizarNoticias(noticiasFiltradas);
     }
 
     @Override

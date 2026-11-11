@@ -50,6 +50,12 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.NoticiaV
         return noticias.size();
     }
 
+    public void actualizarNoticias(List<Noticia> nuevasNoticias) {
+        noticias.clear();
+        noticias.addAll(nuevasNoticias);
+        notifyDataSetChanged();
+    }
+
     static class NoticiaViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemNoticiaBinding binding;
