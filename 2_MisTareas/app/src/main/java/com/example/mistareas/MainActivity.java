@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTa
         binding.rvTareas.setAdapter(adapter);
         aplicarLayoutManager();
 
+        // ¡IMPORTANTE! Registrar el RecyclerView para el menú contextual (pulsación larga)
+        registerForContextMenu(binding.rvTareas);
+
         // Botón flotante para añadir tareas
         binding.fab.setOnClickListener(v -> anadirTarea());
     }
@@ -134,9 +137,11 @@ public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTa
         for (int i = tareas.size() - 1; i >= 0; i--) {
             if (tareas.get(i).isCompletada()) {
                 tareas.remove(i);
-                adapter.notifyItemRemoved(i);
                 borradas++;
             }
+        }
+        if (borradas > 0) {
+            adapter.notifyDataSetChanged();
         }
         Toast.makeText(this, getString(R.string.tareas_borradas, borradas), Toast.LENGTH_SHORT).show();
     }
