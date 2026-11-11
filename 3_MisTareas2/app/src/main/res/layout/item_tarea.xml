@@ -74,6 +74,19 @@
             app:layout_constraintTop_toBottomOf="@id/tvDescripcion"
             tools:text="Prioridad alta" />
 
+        <TextView
+            android:id="@+id/tvFechaLimite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/tvTitulo"
+            app:layout_constraintTop_toBottomOf="@id/tvPrioridad"
+            tools:text="Fecha límite: 25/11/2026"
+            tools:visibility="visible" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

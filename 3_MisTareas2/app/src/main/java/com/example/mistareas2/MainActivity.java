@@ -27,6 +27,11 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.mistareas2.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 import java.util.List;
+import android.app.DatePickerDialog;
+import android.widget.Button;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTareaListener {
 
@@ -110,6 +115,12 @@ public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTa
         // Crear los campos de texto
         EditText campoTitulo = new EditText(this);
         EditText campoDescripcion = new EditText(this);
+        Button botonFecha = new Button(this);
+
+        // Guardará la fecha seleccionada
+        final String[] fechaLimite = {""};
+
+        botonFecha.setText(R.string.seleccionar_fecha);
 
         campoTitulo.setHint(R.string.titulo_tarea_hint);
         campoDescripcion.setHint(R.string.descripcion_tarea_hint);
@@ -136,6 +147,49 @@ public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTa
 
         contenedor.addView(campoTitulo);
         contenedor.addView(campoDescripcion);
+        contenedor.addView(botonFecha);
+
+        botonFecha.setOnClickListener(v -> {
+
+            Calendar calendario = Calendar.getInstance();
+
+            int anio = calendario.get(Calendar.YEAR);
+            int mes = calendario.get(Calendar.MONTH);
+            int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog selectorFecha = new DatePickerDialog(
+                    this,
+                    (view, year, month, dayOfMonth) -> {
+
+                        Calendar fechaSeleccionada = Calendar.getInstance();
+
+                        fechaSeleccionada.set(
+                                year,
+                                month,
+                                dayOfMonth
+                        );
+
+                        SimpleDateFormat formato =
+                                new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+                        fechaLimite[0] = formato.format(
+                                fechaSeleccionada.getTime()
+                        );
+
+                        botonFecha.setText(
+                                getString(
+                                        R.string.fecha_limite,
+                                        fechaLimite[0]
+                                )
+                        );
+                    },
+                    anio,
+                    mes,
+                    dia
+            );
+
+            selectorFecha.show();
+        });
 
         // Construir el diálogo
         AlertDialog dialogo = new AlertDialog.Builder(this)
@@ -172,6 +226,8 @@ public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTa
                                     descripcion,
                                     Tarea.PRIORIDAD_MEDIA
                             );
+
+                            nueva.setFechaLimite(fechaLimite[0]);
 
                             // Añadirla a la lista
                             tareas.add(nueva);

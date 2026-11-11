@@ -10,6 +10,7 @@ public class Tarea {
     private String descripcion;
     private int prioridad;
     private boolean completada;
+    private String fechaLimite;
 
     // Constructor: al crear una tarea nueva, por defecto no está completada
     public Tarea(String titulo, String descripcion, int prioridad) {
@@ -17,6 +18,7 @@ public class Tarea {
         this.descripcion = descripcion;
         this.prioridad = prioridad;
         this.completada = false;
+        this.fechaLimite = "";
     }
 
     // Getters y Setters
@@ -50,5 +52,13 @@ public class Tarea {
 
     public void setCompletada(boolean completada) {
         this.completada = completada;
+    }
+
+    public String getFechaLimite() {
+        return fechaLimite;
+    }
+
+    public void setFechaLimite(String fechaLimite) {
+        this.fechaLimite = fechaLimite;
     }
 }

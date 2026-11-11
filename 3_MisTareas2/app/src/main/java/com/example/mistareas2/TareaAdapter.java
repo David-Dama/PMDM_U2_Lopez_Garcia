@@ -117,6 +117,24 @@ public class TareaAdapter extends RecyclerView.Adapter<TareaAdapter.TareaViewHol
             }
             binding.tvPrioridad.setText(texto);
             binding.tvPrioridad.setTextColor(ContextCompat.getColor(ctx, color));
+
+            // Mostrar la fecha límite si existe
+            if (tarea.getFechaLimite() != null
+                    && !tarea.getFechaLimite().isEmpty()) {
+
+                binding.tvFechaLimite.setText(
+                        ctx.getString(
+                                R.string.fecha_limite,
+                                tarea.getFechaLimite()
+                        )
+                );
+
+                binding.tvFechaLimite.setVisibility(View.VISIBLE);
+
+            } else {
+
+                binding.tvFechaLimite.setVisibility(View.GONE);
+            }
         }
     }
 }

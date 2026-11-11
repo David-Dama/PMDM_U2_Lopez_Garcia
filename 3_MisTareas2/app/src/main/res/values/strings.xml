@@ -38,4 +38,8 @@
     <string name="boton_anadir">Añadir</string>
     <string name="boton_cancelar">Cancelar</string>
     <string name="error_titulo_vacio">Escribe un título</string>
+
+    <!-- Fecha límite -->
+    <string name="seleccionar_fecha">Seleccionar fecha límite</string>
+    <string name="fecha_limite">Fecha límite: %1$s</string>
 </resources>
