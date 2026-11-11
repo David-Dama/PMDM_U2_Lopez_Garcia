@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,9 +20,11 @@ import android.content.SharedPreferences;
 import android.widget.EditText;
 import android.text.InputType;
 import androidx.appcompat.app.AlertDialog;
-
+import android.text.InputType;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import androidx.appcompat.app.AlertDialog;
 import com.example.mistareas2.databinding.ActivityMainBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,14 +106,90 @@ public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTa
     }
 
     private void anadirTarea() {
-        Tarea nueva = new Tarea(
-                getString(R.string.nueva_tarea, contador++),
-                getString(R.string.nueva_tarea_descripcion),
-                Tarea.PRIORIDAD_MEDIA
+
+        // Crear los campos de texto
+        EditText campoTitulo = new EditText(this);
+        EditText campoDescripcion = new EditText(this);
+
+        campoTitulo.setHint(R.string.titulo_tarea_hint);
+        campoDescripcion.setHint(R.string.descripcion_tarea_hint);
+
+        campoTitulo.setInputType(
+                InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
         );
-        tareas.add(nueva);
-        adapter.notifyItemInserted(tareas.size() - 1);
-        binding.rvTareas.scrollToPosition(tareas.size() - 1);
+
+        campoDescripcion.setInputType(
+                InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_FLAG_CAP_SENTENCES |
+                        InputType.TYPE_TEXT_FLAG_MULTI_LINE
+        );
+
+        // Contenedor vertical para los dos campos
+        LinearLayout contenedor = new LinearLayout(this);
+        contenedor.setOrientation(LinearLayout.VERTICAL);
+
+        int margen = (int) (24 * getResources()
+                .getDisplayMetrics().density);
+
+        contenedor.setPadding(margen, 0, margen, 0);
+
+        contenedor.addView(campoTitulo);
+        contenedor.addView(campoDescripcion);
+
+        // Construir el diálogo
+        AlertDialog dialogo = new AlertDialog.Builder(this)
+                .setTitle(R.string.dialogo_nueva_tarea)
+                .setView(contenedor)
+                .setPositiveButton(R.string.boton_anadir, null)
+                .setNegativeButton(R.string.boton_cancelar, null)
+                .create();
+
+        // Controlar manualmente el botón Añadir
+        dialogo.setOnShowListener(v -> {
+
+            dialogo.getButton(AlertDialog.BUTTON_POSITIVE)
+                    .setOnClickListener(boton -> {
+
+                        String titulo = campoTitulo.getText()
+                                .toString().trim();
+
+                        String descripcion = campoDescripcion.getText()
+                                .toString().trim();
+
+                        // Validar que el título no esté vacío
+                        if (titulo.isEmpty()) {
+
+                            campoTitulo.setError(
+                                    getString(R.string.error_titulo_vacio)
+                            );
+
+                        } else {
+
+                            // Crear la nueva tarea
+                            Tarea nueva = new Tarea(
+                                    titulo,
+                                    descripcion,
+                                    Tarea.PRIORIDAD_MEDIA
+                            );
+
+                            // Añadirla a la lista
+                            tareas.add(nueva);
+
+                            // Notificar al adaptador
+                            adapter.notifyItemInserted(tareas.size() - 1);
+
+                            // Mostrar la última tarea
+                            binding.rvTareas.scrollToPosition(
+                                    tareas.size() - 1
+                            );
+
+                            dialogo.dismiss();
+                        }
+                    });
+        });
+
+        dialogo.show();
     }
 
     // --- MENÚ DE OPCIONES (Barra superior) ---

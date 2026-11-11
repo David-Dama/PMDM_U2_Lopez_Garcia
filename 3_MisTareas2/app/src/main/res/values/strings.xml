@@ -30,4 +30,12 @@
     <string name="dialogo_aceptar">Aceptar</string>
     <string name="error_nombre_vacio">Escribe tu nombre</string>
     <string name="tareas_de">Tareas de %1$s</string>
+
+    <!-- Diálogo de nueva tarea -->
+    <string name="dialogo_nueva_tarea">Nueva tarea</string>
+    <string name="titulo_tarea_hint">Título de la tarea</string>
+    <string name="descripcion_tarea_hint">Descripción de la tarea</string>
+    <string name="boton_anadir">Añadir</string>
+    <string name="boton_cancelar">Cancelar</string>
+    <string name="error_titulo_vacio">Escribe un título</string>
 </resources>
