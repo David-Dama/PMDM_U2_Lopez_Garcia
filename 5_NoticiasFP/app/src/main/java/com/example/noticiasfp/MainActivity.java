@@ -12,11 +12,13 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private List<Noticia> noticias;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,42 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setSupportActionBar(binding.toolbar);
+
+        drawerToggle = new ActionBarDrawerToggle(
+                this,
+                binding.drawerLayout,
+                binding.toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
+        );
+
+        binding.drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        binding.navigationView.setNavigationItemSelectedListener(item -> {
+
+            int id = item.getItemId();
+
+            if (id == R.id.nav_portada) {
+                binding.toolbar.setTitle("Portada");
+
+            } else if (id == R.id.nav_tecnologia) {
+                binding.toolbar.setTitle("Tecnología");
+
+            } else if (id == R.id.nav_economia) {
+                binding.toolbar.setTitle("Economía");
+
+            } else if (id == R.id.nav_educacion) {
+                binding.toolbar.setTitle("Educación");
+
+            } else if (id == R.id.nav_favoritas) {
+                binding.toolbar.setTitle("Mis favoritas");
+            }
+
+            binding.drawerLayout.closeDrawers();
+
+            return true;
+        });
 
         noticias = new ArrayList<>();
 
@@ -100,6 +138,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
 
         int id = item.getItemId();
 
