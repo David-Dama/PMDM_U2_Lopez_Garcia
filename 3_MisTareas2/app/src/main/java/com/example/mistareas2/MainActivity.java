@@ -32,6 +32,7 @@ import android.widget.Button;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTareaListener {
 
@@ -368,12 +369,53 @@ public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTa
             adapter.notifyItemInserted(pos + 1);
             return true;
         } else if (id == R.id.action_eliminar) {
-            tareas.remove(pos);
-            adapter.notifyItemRemoved(pos);
-            return true;
-        }
+        confirmarEliminacion(pos);
+        return true;
+    }
 
         return super.onContextItemSelected(item);
+    }
+
+    private void confirmarEliminacion(int posicion) {
+
+        // Obtener la tarea seleccionada
+        Tarea tarea = tareas.get(posicion);
+
+        // Crear diálogo de confirmación
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.dialogo_eliminar_titulo)
+                .setMessage(R.string.dialogo_eliminar_mensaje)
+
+                // Si confirma, eliminamos la tarea
+                .setPositiveButton(R.string.boton_eliminar, (dialog, which) -> {
+
+                    // Eliminar de la lista
+                    tareas.remove(posicion);
+
+                    // Actualizar RecyclerView
+                    adapter.notifyItemRemoved(posicion);
+
+                    // Mostrar Snackbar con opción Deshacer
+                    Snackbar.make(
+                            binding.main,
+                            R.string.tarea_eliminada,
+                            Snackbar.LENGTH_LONG
+                    ).setAction(R.string.deshacer, v -> {
+
+                        // Recuperar la tarea en su posición original
+                        tareas.add(posicion, tarea);
+
+                        // Actualizar RecyclerView
+                        adapter.notifyItemInserted(posicion);
+
+                    }).show();
+
+                })
+
+                // Si cancela, no hacemos nada
+                .setNegativeButton(R.string.boton_cancelar, null)
+
+                .show();
     }
 
     private void mostrarDialogoNombre() {

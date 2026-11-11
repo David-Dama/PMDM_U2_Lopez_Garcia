@@ -42,4 +42,11 @@
     <!-- Fecha límite -->
     <string name="seleccionar_fecha">Seleccionar fecha límite</string>
     <string name="fecha_limite">Fecha límite: %1$s</string>
+
+    <!-- Confirmación de eliminación -->
+    <string name="dialogo_eliminar_titulo">¿Eliminar?</string>
+    <string name="dialogo_eliminar_mensaje">¿Estás seguro de que quieres eliminar esta tarea?</string>
+    <string name="boton_eliminar">Eliminar</string>
+    <string name="tarea_eliminada">Tarea eliminada</string>
+    <string name="deshacer">Deshacer</string>
 </resources>
