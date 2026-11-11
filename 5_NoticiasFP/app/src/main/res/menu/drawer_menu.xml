@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Secciones">
+
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/nav_portada"
+                    android:title="Portada"
+                    android:checked="true"/>
+
+                <item
+                    android:id="@+id/nav_tecnologia"
+                    android:title="Tecnología"/>
+
+                <item
+                    android:id="@+id/nav_economia"
+                    android:title="Economía"/>
+
+                <item
+                    android:id="@+id/nav_educacion"
+                    android:title="Educación"/>
+
+            </group>
+        </menu>
+
+    </item>
+
+    <item
+        android:title="Personal">
+
+        <menu>
+            <item
+                android:id="@+id/nav_favoritas"
+                android:title="Mis favoritas"/>
+        </menu>
+
+    </item>
+
+</menu>
