@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.nav_favoritas) {
 
                 binding.toolbar.setTitle("Mis favoritas");
-
+                mostrarFavoritas();
             }
 
             binding.drawerLayout.closeDrawers();
@@ -193,5 +193,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void mostrarFavoritas() {
+
+        List<Noticia> favoritas = new ArrayList<>();
+
+        for (Noticia noticia : noticias) {
+
+            if (noticia.isFavorita()) {
+                favoritas.add(noticia);
+            }
+        }
+
+        adapter.actualizarNoticias(favoritas);
     }
 }

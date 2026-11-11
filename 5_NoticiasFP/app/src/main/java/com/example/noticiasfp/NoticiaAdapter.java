@@ -43,6 +43,26 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.NoticiaV
         holder.binding.tvFechaNoticia.setText(noticia.getFecha());
         holder.binding.chipCategoria.setText(noticia.getCategoria());
         holder.binding.ivNoticia.setImageResource(noticia.getImagen());
+
+        // Actualizar el texto según el estado de favorito.
+        holder.binding.btnFavorita.setText(
+                noticia.isFavorita()
+                        ? "Quitar de favoritas"
+                        : "Añadir a favoritas"
+        );
+
+        // Gestionar el clic sobre el botón.
+        holder.binding.btnFavorita.setOnClickListener(view -> {
+
+            noticia.setFavorita(!noticia.isFavorita());
+
+            holder.binding.btnFavorita.setText(
+                    noticia.isFavorita()
+                            ? "Quitar de favoritas"
+                            : "Añadir a favoritas"
+            );
+
+        });
     }
 
     @Override
@@ -57,7 +77,6 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.NoticiaV
     }
 
     static class NoticiaViewHolder extends RecyclerView.ViewHolder {
-
         private final ItemNoticiaBinding binding;
 
         public NoticiaViewHolder(ItemNoticiaBinding binding) {
