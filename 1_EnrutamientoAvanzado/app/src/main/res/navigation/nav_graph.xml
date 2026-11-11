@@ -27,5 +27,6 @@
         <argument
             android:name="mensaje"
             app:argType="string" />
+        <deepLink app:uri="notas://detalle/{mensaje}" />
     </fragment>
 </navigation>
