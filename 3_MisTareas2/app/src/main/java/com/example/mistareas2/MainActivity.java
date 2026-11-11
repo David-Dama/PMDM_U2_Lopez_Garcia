@@ -17,6 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.content.SharedPreferences;
+import android.widget.EditText;
+import android.text.InputType;
+import androidx.appcompat.app.AlertDialog;
 
 import com.example.mistareas2.databinding.ActivityMainBinding;
 
@@ -26,11 +30,16 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTareaListener {
 
     private ActivityMainBinding binding;
-    private final List<Tarea> tareas = new ArrayList<>(); // Los datos
-    private TareaAdapter adapter; // El puente
+    private final List<Tarea> tareas = new ArrayList<>();
+    private TareaAdapter adapter;
+
     private boolean vistaCuadricula = false;
-    private int posicionSeleccionada = RecyclerView.NO_POSITION; // Para el menú contextual
+    private int posicionSeleccionada = RecyclerView.NO_POSITION;
     private int contador = 1;
+
+    // Preferencias del usuario
+    private SharedPreferences preferencias;
+    private String nombreUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +58,13 @@ public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTa
         // La Toolbar hace de barra de la app: aquí se mostrará el menú de opciones[cite: 36]
         setSupportActionBar(binding.toolbar);
 
+        // Recuperar preferencias guardadas
+        preferencias = getSharedPreferences("ajustes_mis_tareas", MODE_PRIVATE);
+
+        nombreUsuario = preferencias.getString("nombre_usuario", "");
+
+        vistaCuadricula = preferencias.getBoolean("vista_cuadricula", false);
+
         // 1) Datos, 2) Adaptador, 3) RecyclerView + LayoutManager[cite: 36]
         cargarTareasDeEjemplo();
         adapter = new TareaAdapter(tareas, this);
@@ -57,6 +73,13 @@ public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTa
 
         // Botón flotante para añadir tareas
         binding.fab.setOnClickListener(v -> anadirTarea());
+
+        // Solicitar nombre únicamente en el primer arranque
+        if (nombreUsuario.isEmpty()) {
+            mostrarDialogoNombre();
+        } else {
+            actualizarTitulo();
+        }
     }
 
     private void cargarTareasDeEjemplo() {
@@ -117,8 +140,15 @@ public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTa
         int id = item.getItemId();
 
         if (id == R.id.action_cambiar_vista) {
+
             vistaCuadricula = !vistaCuadricula;
+
+            preferencias.edit()
+                    .putBoolean("vista_cuadricula", vistaCuadricula)
+                    .apply();
+
             aplicarLayoutManager();
+
             return true;
         } else if (id == R.id.action_borrar_completadas) {
             borrarCompletadas();
@@ -211,5 +241,58 @@ public class MainActivity extends AppCompatActivity implements TareaAdapter.OnTa
         }
 
         return super.onContextItemSelected(item);
+    }
+
+    private void mostrarDialogoNombre() {
+
+        EditText campoNombre = new EditText(this);
+
+        campoNombre.setHint(R.string.dialogo_nombre_hint);
+        campoNombre.setInputType(InputType.TYPE_CLASS_TEXT
+                | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+
+        AlertDialog dialogo = new AlertDialog.Builder(this)
+                .setTitle(R.string.dialogo_nombre_titulo)
+                .setMessage(R.string.dialogo_nombre_mensaje)
+                .setView(campoNombre)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialogo_aceptar, null)
+                .create();
+
+        dialogo.setOnShowListener(v -> {
+
+            dialogo.getButton(AlertDialog.BUTTON_POSITIVE)
+                    .setOnClickListener(boton -> {
+
+                        String nombre = campoNombre.getText()
+                                .toString().trim();
+
+                        if (nombre.isEmpty()) {
+                            campoNombre.setError(
+                                    getString(R.string.error_nombre_vacio)
+                            );
+                        } else {
+
+                            nombreUsuario = nombre;
+
+                            preferencias.edit()
+                                    .putString("nombre_usuario", nombreUsuario)
+                                    .apply();
+
+                            actualizarTitulo();
+
+                            dialogo.dismiss();
+                        }
+                    });
+        });
+
+        dialogo.show();
+    }
+
+    private void actualizarTitulo() {
+
+        binding.toolbar.setSubtitle(
+                getString(R.string.tareas_de, nombreUsuario)
+        );
     }
 }

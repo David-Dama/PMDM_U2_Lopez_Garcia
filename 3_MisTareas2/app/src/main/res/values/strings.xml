@@ -22,4 +22,12 @@
     <string name="nueva_tarea_descripcion">Añadida con el botón +</string>
     <string name="tareas_borradas">Tareas borradas: %1$d</string>
     <string name="copia_de">%1$s (copia)</string>
+
+    <!-- Preferencias y diálogo inicial -->
+    <string name="dialogo_nombre_titulo">¿Cómo te llamas?</string>
+    <string name="dialogo_nombre_mensaje">Introduce tu nombre para personalizar la aplicación.</string>
+    <string name="dialogo_nombre_hint">Tu nombre</string>
+    <string name="dialogo_aceptar">Aceptar</string>
+    <string name="error_nombre_vacio">Escribe tu nombre</string>
+    <string name="tareas_de">Tareas de %1$s</string>
 </resources>
